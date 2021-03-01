@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Startup
+Comment=Start the OS installer
+TryExec=sudo os-installer
+Exec=sudo os-installer

@@ -1,0 +1,5 @@
+root ALL=(ALL) ALL
+user ALL=(ALL) NOPASSWD: ALL
+
+Defaults targetpw  # Ask for the password of the target user
+ALL ALL=(ALL) ALL  # WARNING: only use this together with 'Defaults targetpw'

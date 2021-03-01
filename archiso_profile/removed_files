@@ -1,0 +1,5 @@
+airootfs/etc/hostname
+airootfs/etc/motd
+airootfs/etc/passwd
+airootfs/etc/shadow
+profiledef.sh

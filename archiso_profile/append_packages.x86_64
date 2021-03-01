@@ -1,0 +1,62 @@
+# OS installer
+os-installer
+
+# graphic drivers
+xf86-video-vesa
+xf86-video-intel
+xf86-video-nouveau
+xf86-video-openchrome
+xf86-video-ati
+xf86-video-amdgpu
+xf86-video-vmware
+
+# system
+# nicer shell
+fish
+# monitor
+htop
+# printing
+cups
+# networking
+networkmanager
+
+# graphical
+gdm
+gnome-shell
+
+
+# system mgmt apps
+baobab
+gnome-control-center
+gnome-disk-utility
+#gnome-software
+gnome-terminal
+gnome-usage
+yelp
+
+# applications
+celluloid
+eog
+evince
+firefox
+geary
+gedit
+gedit-plugins
+gnome-calculator
+gnome-contacts
+gnome-calendar
+gnome-music
+gnome-photos
+nautilus
+simple-scan
+#totem
+
+# additional funcitonality
+# for gnome-shell extension access via the website
+chrome-gnome-shell
+# for Android file copying
+gvfs-mtp
+# for .webp image file support
+webp-pixbuf-loader
+# for VPN
+networkmanager-openvpn
