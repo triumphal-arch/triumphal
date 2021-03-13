@@ -1,0 +1,38 @@
+%YAML 1.2
+---
+# This is an example config file for OS-Installer.
+# Place your config under /etc/os-installer/config.yaml for it to be used.
+
+# Whether the installation needs an internet connection.
+internet_connection_required: yes
+
+# A URL/IP address to be used to check for an existing internet connection.
+internet_checker_url: 'http://nmcheck.gnome.org/check_network_status.txt'
+
+# Languages that you want the installer to offer. In order
+# Only those with existing translations will actually be available.
+suggested_languages: 
+    - 'en'
+    - 'de'
+
+# Minimum disk size needed for the installation (in Gigabyte)
+minimum_disk_size: 5
+
+# Whether to offer setting a disk encryption PIN
+offer_disk_encryption: yes
+
+# A list of additional software packages that can be optionally be selected
+# from the installer. The package string will be passed to the installation
+# script without changes, so you can bundle multiple packages as one point.
+# All fields are required (package, default, name, description, icon_path).
+additional_software:
+    - package     : 'firefox'
+      default     : yes
+      name        : 'Firefox'
+      description : 'Popular Web Browser from Mozilla'
+      icon_path   : '/etc/os-installer/icons/firefox.png'
+    - package     : 'libreoffice-fresh'
+      default     : no
+      name        : 'LibreOffice'
+      description : 'Office Suite for Documents, Tables, Presentations and more'
+      icon_path   : '/etc/os-installer/icons/libreoffice-main.png'
