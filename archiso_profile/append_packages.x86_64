@@ -56,6 +56,7 @@ simple-scan
 chrome-gnome-shell
 # for Android file copying
 gvfs-mtp
+gvfs-gphoto2
 # for .webp image file support
 webp-pixbuf-loader
 # for VPN
