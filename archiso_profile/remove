@@ -1,3 +1,7 @@
+airootfs/etc/mkinitcpio.d
+airootfs/root
+efiboot
+syslinux
 airootfs/etc/hostname
 airootfs/etc/motd
 airootfs/etc/passwd
