@@ -15,8 +15,6 @@ xf86-video-vmware
 fish
 # monitor
 htop
-# printing
-cups
 # networking
 networkmanager
 
@@ -29,34 +27,17 @@ gnome-shell
 baobab
 gnome-control-center
 gnome-disk-utility
-#gnome-software
 gnome-terminal
 gnome-usage
-yelp
 
 # applications
-celluloid
 eog
+epiphany
 evince
-firefox
-geary
 gedit
-gedit-plugins
 gnome-calculator
-gnome-contacts
-gnome-calendar
-gnome-music
-gnome-photos
 nautilus
-simple-scan
-#totem
 
 # additional funcitonality
-# for gnome-shell extension access via the website
-chrome-gnome-shell
-# for Android file copying
-gvfs-mtp
-# for .webp image file support
-webp-pixbuf-loader
 # for VPN
 networkmanager-openvpn
