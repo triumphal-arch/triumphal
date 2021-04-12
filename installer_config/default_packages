@@ -1,0 +1,22 @@
+# printing
+cups
+
+geary
+gedit-plugins
+gnome-contacts
+gnome-calendar
+gnome-music
+gnome-photos
+#gnome-software
+simple-scan
+totem
+yelp
+
+# for gnome-shell extension access via the website
+chrome-gnome-shell
+
+# for Android file copying
+gvfs-mtp
+gvfs-gphoto2
+# for .webp image file support
+webp-pixbuf-loader
