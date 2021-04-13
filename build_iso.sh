@@ -37,7 +37,8 @@ archiso_example_profile='/usr/share/archiso/configs/releng'
 profile_dir=$(pwd)/archiso_profile
 build_dir=$(pwd)/build
 database_dir=$build_dir/packages
-work_dir=$build_dir/work_dir
+installer_config=$(pwd)/installer_config
+installer_config_target=$build_dir'/airootfs/etc/os-installer'
 
 
 ### Prepare for build ###
@@ -56,6 +57,9 @@ cp -a $archiso_example_profile/* $build_dir
 for line in $(cat $profile_dir/remove); do rm -rf $build_dir/$line; done
 for file in $(ls  $profile_dir/patch);  do cat $profile_dir/patch/$file >> $build_dir/$file; done
 for file in $(ls  $profile_dir/add);    do cp -a $profile_dir/add/$file $build_dir/; done
+# copy installer config
+mkdir -p $installer_config_target
+cp -a $installer_config/* $installer_config_target
 
 
 ### Build packages ###
