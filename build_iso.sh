@@ -37,6 +37,7 @@ archiso_example_profile='/usr/share/archiso/configs/releng'
 profile_dir=$(pwd)/archiso_profile
 build_dir=$(pwd)/build
 database_dir=$build_dir/packages
+work_dir='/tmp/archiso_workdir'
 installer_config=$(pwd)/installer_config
 installer_config_target=$build_dir'/airootfs/etc/os-installer'
 
@@ -44,13 +45,12 @@ installer_config_target=$build_dir'/airootfs/etc/os-installer'
 ### Prepare for build ###
 #remove previous build
 sudo rm -rf $build_dir
-sudo rm -rf triumphal-*
-sudo rm -rf /tmp/archiso_workdir
+sudo rm -rf $work_dir
 # flags for file creation
 umask 0022
 
 
-### Setup airottfs ###
+### Setup airootfs ###
 mkdir -p $build_dir
 cp -a $archiso_example_profile/* $build_dir
 # remove unwanted, patch and add files from/to default profile.
@@ -84,15 +84,14 @@ then
         sudo swapon $swapfile
     fi
 fi
-# create temporary folder
-mkdir -p /tmp/archiso_workdir
 # temporarily increase tmpfs size
 sudo mount -o remount,size=7G,noatime /tmp
 
 ### Build ISO ###
+# create temporary folder
 mkdir -p $work_dir
 # Run ISO creation with caching in memory  (releng as the profile folder)
-sudo mkarchiso -v -w /tmp/archiso_workdir -o . build
+sudo mkarchiso -v -w $work_dir -o . build
 mkarchiso -v -w $work_dir -o . 
 
 if [ $use_swapfile = true ]
