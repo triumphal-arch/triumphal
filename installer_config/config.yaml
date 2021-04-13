@@ -1,0 +1,24 @@
+%YAML 1.2
+---
+internet_connection_required: yes
+internet_checker_url: 'http://nmcheck.gnome.org/check_network_status.txt'
+
+suggested_languages: 
+    - 'ar'
+    - 'de' 
+    - 'en'
+    - 'es'
+    - 'fr'
+    - 'ja'
+    - 'ru'
+    - 'zh'
+
+minimum_disk_size: 8
+offer_disk_encryption: yes
+
+additional_software:
+    - package     : 'libreoffice-fresh'
+      default     : no
+      name        : 'LibreOffice'
+      description : 'Office Suite for Documents, Tables, Presentations and more'
+      icon_path   : '/etc/os-installer/icons/libreoffice-main.png'
