@@ -1,7 +1,48 @@
+### system stuff ###
+pacman-contrib
+# nicer shell
+fish
+# monitor
+htop
+# networking
+networkmanager
+# graphical
+gdm
+gnome-shell
+
+
+### funcitonality ###
 # printing
 cups
+# gnome-shell extensions
+chrome-gnome-shell
+# for Android file copying
+gvfs-mtp
+gvfs-gphoto2
+# for .webp image file support
+webp-pixbuf-loader
+# for VPN
+networkmanager-openvpn
 
+
+### apps ###
+## also in iso
+eog
+epiphany
+evince
+gedit
+gnome-calculator
+nautilus
+# system mgmt apps
+baobab
+gnome-control-center
+gnome-disk-utility
+gnome-terminal
+gnome-usage
+
+## additional
 geary
+gedit
 gedit-plugins
 gnome-contacts
 gnome-calendar
@@ -11,12 +52,3 @@ gnome-photos
 simple-scan
 totem
 yelp
-
-# for gnome-shell extension access via the website
-chrome-gnome-shell
-
-# for Android file copying
-gvfs-mtp
-gvfs-gphoto2
-# for .webp image file support
-webp-pixbuf-loader
