@@ -13,12 +13,21 @@ fi
 build_package () {
     package_name=$1
     git_package_url=$2
+    package_dir=$build_dir/$package_name
 
     echo "Building " $package_name
-    git clone $git_package_url $build_dir/$package_name
-    pushd $build_dir/$package_name >> /dev/null
+    if [ -e $package_dir ]
+    then
+        pushd $package_dir >> /dev/null
+        git pull
+    else
+        echo asdf
+        git clone $git_package_url $package_dir
+        echo asdf
+        pushd $package_dir >> /dev/null
+    fi
     makepkg $package_name
-    mv $package_name-* $package_dir
+    mv $package_name-* $database_dir
     popd >> /dev/null
 }
 
@@ -27,7 +36,7 @@ build_package () {
 archiso_example_profile='/usr/share/archiso/configs/releng'
 profile_dir=$(pwd)/archiso_profile
 build_dir=$(pwd)/build
-package_dir=$build_dir/packages
+database_dir=$build_dir/packages
 work_dir=$build_dir/work_dir
 
 
@@ -50,10 +59,10 @@ for file in $(ls  $profile_dir/add);    do cp -a $profile_dir/add/$file $build_d
 
 
 ### Build packages ###
-mkdir -p $package_dir
+mkdir -p $database_dir
 build_package os-installer git@github.com:p3732/os-installer-pkgbuild.git
-repo-add $package_dir/triumphal.db.tar.gz $package_dir/*
-sudo sed -i s,@@REPO_PATH@@,$package_dir, $build_dir/pacman.conf
+repo-add $database_dir/triumphal.db.tar.gz $database_dir/*.pkg.tar
+sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_dir/pacman.conf
 
 
 ### Prepare build system ###
