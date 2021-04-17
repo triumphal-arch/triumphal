@@ -13,7 +13,7 @@ fi
 build_package () {
     package_name=$1
     git_package_url=$2
-    package_dir=$build_dir/$package_name
+    package_dir=$database_dir/$package_name
 
     echo "Building " $package_name
     if [ -e $package_dir ]
@@ -21,13 +21,11 @@ build_package () {
         pushd $package_dir >> /dev/null
         git pull
     else
-        echo asdf
         git clone $git_package_url $package_dir
-        echo asdf
         pushd $package_dir >> /dev/null
     fi
     makepkg $package_name
-    mv $package_name-* $database_dir
+    mv $package_name-* $tarball_dir
     popd >> /dev/null
 }
 
@@ -47,6 +45,7 @@ archiso_example_profile='/usr/share/archiso/configs/releng'
 profile_dir=$(pwd)/archiso_profile
 build_dir=$(pwd)/build
 database_dir=$build_dir/packages
+tarball_dir=$database_dir/tarballs
 work_dir='/tmp/archiso_workdir'
 installer_config=$(pwd)/installer_config
 installer_config_target=$build_dir'/airootfs/etc/os-installer'
@@ -74,8 +73,9 @@ cp -a $installer_config/* $installer_config_target
 
 ### Build packages ###
 mkdir -p $database_dir
+mkdir -p $tarball_dir
 build_package os-installer git@github.com:p3732/os-installer-pkgbuild.git
-repo-add $database_dir/triumphal.db.tar.gz $database_dir/*.pkg.tar
+repo-add $database_dir/triumphal.db.tar.gz $tarball_dir/*.pkg.tar
 sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_dir/pacman.conf
 
 
