@@ -32,6 +32,16 @@ build_package () {
 }
 
 
+cleanup () {
+    if [ $use_swapfile = true ]
+    then
+        sudo swapoff $swapfile
+        sudo rm $swapfile
+    fi
+    sudo umount $(/usr/bin/mount | grep $work_dir/ | cut -f3 -d ' ')
+    sudo rm -rf $work_dir
+}
+
 ### Directory paths ###
 archiso_example_profile='/usr/share/archiso/configs/releng'
 profile_dir=$(pwd)/archiso_profile
@@ -45,7 +55,7 @@ installer_config_target=$build_dir'/airootfs/etc/os-installer'
 ### Prepare for build ###
 #remove previous build
 sudo rm -rf $build_dir
-sudo rm -rf $work_dir
+cleanup
 # flags for file creation
 umask 0022
 
@@ -95,10 +105,4 @@ sudo mkarchiso -v -w $work_dir -o . build
 mkarchiso -v -w $work_dir -o . 
 
 ### Cleanup ###
-if [ $use_swapfile = true ]
-then
-    sudo swapoff $swapfile
-    sudo rm $swapfile
-fi
-sudo umount $(/usr/bin/mount | grep $work_dir/ | cut -f3 -d ' ')
-sudo rm -rf $work_dir
+cleanup
