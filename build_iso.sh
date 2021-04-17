@@ -44,16 +44,17 @@ cleanup () {
 archiso_example_profile='/usr/share/archiso/configs/releng'
 profile_dir=$(pwd)/archiso_profile
 build_dir=$(pwd)/build
+build_profile_dir=$build_dir/profile
 database_dir=$build_dir/packages
 tarball_dir=$database_dir/tarballs
 work_dir='/tmp/archiso_workdir'
 installer_config=$(pwd)/installer_config
-installer_config_target=$build_dir'/airootfs/etc/os-installer'
+installer_config_target=$build_profile_dir'/airootfs/etc/os-installer'
 
 
 ### Prepare for build ###
-#remove previous build
-sudo rm -rf $build_dir
+# remove previous build stuf^
+sudo rm -rf $build_profile_dir
 cleanup
 # flags for file creation
 umask 0022
@@ -61,11 +62,12 @@ umask 0022
 
 ### Setup airootfs ###
 mkdir -p $build_dir
-cp -a $archiso_example_profile/* $build_dir
+mkdir -p $build_profile_dir
+cp -a $archiso_example_profile/* $build_profile_dir
 # remove unwanted, patch and add files from/to default profile.
-for line in $(cat $profile_dir/remove); do rm -rf $build_dir/$line; done
-for file in $(ls  $profile_dir/patch);  do cat $profile_dir/patch/$file >> $build_dir/$file; done
-for file in $(ls  $profile_dir/add);    do cp -a $profile_dir/add/$file $build_dir/; done
+for line in $(cat $profile_dir/remove); do rm -rf $build_profile_dir/$line; done
+for file in $(ls  $profile_dir/patch);  do cat $profile_dir/patch/$file >> $build_profile_dir/$file; done
+for file in $(ls  $profile_dir/add);    do cp -a $profile_dir/add/$file $build_profile_dir/; done
 # copy installer config
 mkdir -p $installer_config_target
 cp -a $installer_config/* $installer_config_target
@@ -76,7 +78,7 @@ mkdir -p $database_dir
 mkdir -p $tarball_dir
 build_package os-installer git@github.com:p3732/os-installer-pkgbuild.git
 repo-add $database_dir/triumphal.db.tar.gz $tarball_dir/*.pkg.tar
-sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_dir/pacman.conf
+sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_profile_dir/pacman.conf
 
 
 ### Prepare build system ###
@@ -101,7 +103,7 @@ sudo mount -o remount,size=7G,noatime /tmp
 # create temporary folder
 mkdir -p $work_dir
 # Run ISO creation with caching in memory  (releng as the profile folder)
-sudo mkarchiso -v -w $work_dir -o . build
+sudo mkarchiso -v -w $work_dir -o . $build_profile_dir
 mkarchiso -v -w $work_dir -o . 
 
 ### Cleanup ###
