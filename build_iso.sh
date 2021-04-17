@@ -29,16 +29,23 @@ build_package () {
     popd >> /dev/null
 }
 
-
 cleanup () {
-    if [ $use_swapfile = true ]
+    mounts=$(/usr/bin/mount | grep $work_dir/ | cut -f3 -d ' ')
+    if [ ! $mounts == '' ]
+    then
+        echo sudo umount -q $mounts
+    fi
+    sudo rm -rf $work_dir
+}
+
+cleanup_swapfile () {
+    if [[ $use_swapfile = true && -e $swapfile ]]
     then
         sudo swapoff $swapfile
         sudo rm $swapfile
     fi
-    sudo umount $(/usr/bin/mount | grep $work_dir/ | cut -f3 -d ' ')
-    sudo rm -rf $work_dir
 }
+
 
 ### Directory paths ###
 archiso_example_profile='/usr/share/archiso/configs/releng'
@@ -50,7 +57,8 @@ tarball_dir=$database_dir/tarballs
 work_dir='/tmp/archiso_workdir'
 installer_config=$(pwd)/installer_config
 installer_config_target=$build_profile_dir'/airootfs/etc/os-installer'
-
+# file paths
+swapfile=/swapfile_iso_build
 
 ### Prepare for build ###
 # remove previous build stuf^
@@ -83,18 +91,14 @@ sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_profile_dir/pacman.conf
 
 ### Prepare build system ###
 # create backup swapfile
-if [ $use_swapfile = true ]
+if [[ $use_swapfile = true &&  -n $swapfile ]]
 then
-    swapfile=/swapfile_iso_build
-    if [ -n $swapfile ]
-    then
-        sudo touch $swapfile
-        sudo chmod 600 $swapfile
-        sudo chattr +C $swapfile
-        sudo fallocate -l 7G  $swapfile
-        sudo mkswap $swapfile
-        sudo swapon $swapfile
-    fi
+    sudo touch $swapfile
+    sudo chmod 600 $swapfile
+    sudo chattr +C $swapfile
+    sudo fallocate -l 7G  $swapfile
+    sudo mkswap $swapfile
+    sudo swapon $swapfile
 fi
 # temporarily increase tmpfs size
 sudo mount -o remount,size=7G,noatime /tmp
@@ -108,3 +112,4 @@ mkarchiso -v -w $work_dir -o .
 
 ### Cleanup ###
 cleanup
+cleanup_swapfile
