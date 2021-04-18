@@ -1,4 +1,3 @@
-airootfs/etc/mkinitcpio.d
 airootfs/root
 efiboot
 syslinux
