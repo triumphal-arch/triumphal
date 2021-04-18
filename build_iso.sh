@@ -56,7 +56,7 @@ cleanup () {
 }
 
 cleanup_swapfile () {
-    if [[ $use_swapfile = true && -e $swapfile ]]
+    if [[ $use_swapfile == true && -e $swapfile ]]
     then
         sudo swapoff $swapfile
         sudo rm $swapfile
@@ -109,8 +109,8 @@ build_package os-installer git@github.com:p3732/os-installer-pkgbuild.git
 build_database
 
 ### Prepare build system ###
-# create backup swapfile
-if [[ $use_swapfile = true &&  -n $swapfile ]]
+# maybe create swapfile
+if [[ $use_swapfile == true &&  -n $swapfile ]]
 then
     sudo touch $swapfile
     sudo chmod 600 $swapfile
