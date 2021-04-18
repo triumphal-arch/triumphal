@@ -37,6 +37,15 @@ build_package () {
     popd >> /dev/null
 }
 
+build_database () {
+    if [[ $packages_changed == true || -n $database ]]
+    then
+        rm -rf $database
+        repo-add $database $database_dir/*.pkg.tar
+    fi
+}
+
+
 cleanup () {
     mounts=$(/usr/bin/mount | grep $work_dir/ | cut -f3 -d ' ')
     if [ ! $mounts == '' ]
@@ -65,6 +74,7 @@ work_dir='/tmp/archiso_workdir'
 installer_config=$(pwd)/installer_config
 installer_config_target=$build_profile_dir'/airootfs/etc/os-installer'
 # file paths
+database=$database_dir/triumphal.db.tar.gz
 swapfile=/swapfile_iso_build
 # other
 packages_changed=false
@@ -89,14 +99,14 @@ for file in $(ls  $profile_dir/add);    do cp -a $profile_dir/add/$file $build_p
 # copy installer config
 mkdir -p $installer_config_target
 cp -a $installer_config/* $installer_config_target
+# set correct database path
+sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_profile_dir/pacman.conf
 
 
 ### Build packages ###
 mkdir -p $database_dir
 build_package os-installer git@github.com:p3732/os-installer-pkgbuild.git
-repo-add $database_dir/triumphal.db.tar.gz $tarball_dir/*.pkg.tar
-sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_profile_dir/pacman.conf
-
+build_database
 
 ### Prepare build system ###
 # create backup swapfile
