@@ -50,7 +50,8 @@ cleanup () {
     mounts=$(/usr/bin/mount | grep $work_dir/ | cut -f3 -d ' ')
     if [ ! $mounts == '' ]
     then
-        echo sudo umount -q $mounts
+        sudo umount -q $mounts
+        sudo umount -q $mounts #twice because of dependencies
     fi
     sudo rm -rf $work_dir
 }
