@@ -70,10 +70,11 @@ archiso_example_profile='/usr/share/archiso/configs/releng'
 profile_dir=$(pwd)/archiso_profile
 build_dir=$(pwd)/build
 build_profile_dir=$build_dir/profile
-database_dir=$build_dir/packages
+database_dir=$build_dir/database
 work_dir='/tmp/archiso_workdir'
 installer_config=$(pwd)/installer_config
 installer_config_target=$build_profile_dir'/airootfs/etc/os-installer'
+autostart_dir=$build_profile_dir'/airootfs/etc/skel/.config/autostart'
 # file paths
 database=$database_dir/triumphal.db.tar.gz
 swapfile=/swapfile_iso_build
@@ -106,8 +107,15 @@ sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_profile_dir/pacman.conf
 
 ### Build packages ###
 mkdir -p $database_dir
+
 build_package os-installer git@github.com:p3732/os-installer-pkgbuild.git
+
+# autostarting of os-installer
+mkdir $autostart_dir
+cp $(find $database_dir/os-installer/pkg -name '*.desktop') $autostart_dir
+
 build_database
+
 
 ### Prepare build system ###
 # maybe create swapfile
@@ -123,12 +131,12 @@ fi
 # temporarily increase tmpfs size
 sudo mount -o remount,size=7G,noatime /tmp
 
+
 ### Build ISO ###
 # create temporary folder
 mkdir -p $work_dir
 # Run ISO creation with caching in memory  (releng as the profile folder)
 sudo mkarchiso -v -w $work_dir -o . $build_profile_dir
-mkarchiso -v -w $work_dir -o . 
 
 ### Cleanup ###
 cleanup
