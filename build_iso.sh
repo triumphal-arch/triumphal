@@ -108,7 +108,9 @@ sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_profile_dir/pacman.conf
 ### Build packages ###
 mkdir -p $database_dir
 
-build_package os-installer git@github.com:p3732/os-installer-pkgbuild.git
+build_package os-installer git@github.com:triumphal-arch/os-installer-pkgbuild.git
+build_package triumphal-scripts git@github.com:triumphal-arch/triumphal-scripts-pkgbuild.git
+build_package triumphal-scripts git@github.com:triumphal-arch/triumphal-backgrounds-pkgbuild.git
 
 # autostarting of os-installer
 mkdir $autostart_dir
