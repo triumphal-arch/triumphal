@@ -13,8 +13,6 @@ xf86-video-vmware
 # system
 # nicer shell
 fish
-# monitor
-htop
 # networking
 networkmanager
 
@@ -23,14 +21,14 @@ gdm
 gnome-shell
 
 
-# system mgmt apps
+# useful system mgmt apps
 baobab
 gnome-control-center
 gnome-disk-utility
 gnome-terminal
 gnome-usage
 
-# applications
+# minimal set of applications
 eog
 epiphany
 evince
@@ -41,3 +39,8 @@ nautilus
 # additional funcitonality
 # for VPN
 networkmanager-openvpn
+
+
+# custom stuff
+triumphal-backgrounds
+triumphal-scripts

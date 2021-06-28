@@ -96,21 +96,27 @@ mkdir -p $build_profile_dir
 cp -a $archiso_example_profile/* $build_profile_dir
 # remove unwanted, patch and add files from/to default profile.
 for line in $(cat $profile_dir/remove); do rm -rf $build_profile_dir/$line; done
-for file in $(ls  $profile_dir/patch);  do cat $profile_dir/patch/$file >> $build_profile_dir/$file; done
-for file in $(ls  $profile_dir/add);    do cp -a $profile_dir/add/$file $build_profile_dir/; done
+for file in $(ls  $profile_dir/patch/append); do cat $profile_dir/patch/append/$file >> $build_profile_dir/$file; done
+
+for file in $(ls  $profile_dir/patch/strip); do
+    for line in $(cat $profile_dir/patch/strip/$file); do
+        sed -i /^$line/d $build_profile_dir/$file;
+    done;
+done
+for file in $(ls  $profile_dir/add); do cp -a $profile_dir/add/$file $build_profile_dir/; done
 # copy installer config
 mkdir -p $installer_config_target
 cp -a $installer_config/* $installer_config_target
 # set correct database path
 sudo sed -i s,@@REPO_PATH@@,$database_dir, $build_profile_dir/pacman.conf
 
-
 ### Build packages ###
 mkdir -p $database_dir
 
 build_package os-installer git@github.com:triumphal-arch/os-installer-pkgbuild.git
+build_package triumphal-os-installer-config git@github.com:triumphal-arch/triumphal-os-installer-config.git
 build_package triumphal-scripts git@github.com:triumphal-arch/triumphal-scripts-pkgbuild.git
-build_package triumphal-scripts git@github.com:triumphal-arch/triumphal-backgrounds-pkgbuild.git
+build_package triumphal-backgrounds git@github.com:triumphal-arch/triumphal-backgrounds-pkgbuild.git
 
 # autostarting of os-installer
 mkdir $autostart_dir

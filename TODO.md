@@ -1,12 +1,11 @@
 # TODO
+
+## Installed System
 * Firefox
     * Configure firefox to install gnome shell extensions addon and ublock origin
     * disable pocket and ad stuff
 
-* include installer scripts (at least dummies)
-
-* Install `pacman-contrib` in installed system for paccache, to clean up unneeded packages 
-
+* build and install yay into iso + system
 
 * Post Install configuration list
     * copy some settings of current user?
@@ -23,3 +22,5 @@
     * autoupdate if possible, preventing shutdown
     * enable multilib in /etc/pacman.conf
     * move pacman lock to /tmp
+
+* use meson instead of build_iso.sh
