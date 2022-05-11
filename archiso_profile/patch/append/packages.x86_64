@@ -44,3 +44,5 @@ networkmanager-openvpn
 # custom stuff
 triumphal-backgrounds
 triumphal-scripts
+# needed for os-installer, not available in normal repos
+vte4-git
