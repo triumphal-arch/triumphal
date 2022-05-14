@@ -48,3 +48,6 @@ triumphal-scripts
 gnome-shell-extension-no-overview
 # needed for os-installer, not available in normal repos
 vte4-git
+
+# development: share a folder with vm in gnome-boxes
+spice-gtk
