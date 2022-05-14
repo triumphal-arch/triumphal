@@ -44,5 +44,7 @@ networkmanager-openvpn
 # custom stuff
 triumphal-backgrounds
 triumphal-scripts
+# to not have the overview on startup
+gnome-shell-extension-no-overview
 # needed for os-installer, not available in normal repos
 vte4-git

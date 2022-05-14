@@ -11,12 +11,8 @@ import subprocess
 
 packages = [
     ('os-installer', 'https://github.com/triumphal-arch/os-installer-pkgbuild.git'),
-    # ('triumphal-os-installer-config',
-    # 'https://github.com/triumphal-arch/triumphal-os-installer-config.git'),
-    #('triumphal-scripts', 'https://github.com/triumphal-arch/triumphal-scripts-pkgbuild.git'),
-    # ('triumphal-backgrounds',
-    # 'https://github.com/triumphal-arch/triumphal-backgrounds-pkgbuild.git'),
-    #('vte4-git', 'https://aur.archlinux.org/vte4-git.git'),
+    ('vte4-git', 'https://aur.archlinux.org/vte4-git.git'),
+    ('gnome-shell-extension-no-overview', 'https://aur.archlinux.org/gnome-shell-extension-no-overview.git'),
 ]
 
 distro_name = 'triumphal'
